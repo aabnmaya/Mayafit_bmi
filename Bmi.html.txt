@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>محاسبه BMI</title>
+  <style>
+    body { font-family: Tahoma, sans-serif; direction: rtl; text-align: center; padding: 20px; }
+    input { padding: 5px; margin: 5px; }
+    button { padding: 5px 10px; }
+    .result { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>محاسبه شاخص توده بدنی (BMI)</h2>
+  <label>وزن (کیلوگرم):</label>
+  <input type="number" id="weight" placeholder="مثلاً 70"><br>
+  <label>قد (سانتی‌متر):</label>
+  <input type="number" id="height" placeholder="مثلاً 175"><br>
+  <button onclick="calculateBMI()">محاسبه BMI</button>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    function calculateBMI() {
+      const weight = parseFloat(document.getElementById('weight').value);
+      const heightCm = parseFloat(document.getElementById('height').value);
+      
+      if (!weight || !heightCm) {
+        document.getElementById('result').innerText = "لطفاً وزن و قد را وارد کنید.";
+        return;
+      }
+
+      const heightM = heightCm / 100;
+      const bmi = weight / (heightM * heightM);
+      let category = "";
+
+      if (bmi < 18.5) category = "کمبود وزن";
+      else if (bmi < 24.9) category = "وزن طبیعی";
+      else if (bmi < 29.9) category = "اضافه وزن";
+      else category = "چاقی";
+
+      document.getElementById('result').innerText = `BMI شما: ${bmi.toFixed(2)} (${category})`;
+    }
+  </script>
+</body>
+</html>
